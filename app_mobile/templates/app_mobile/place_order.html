@@ -1,0 +1,14 @@
+{% extends 'app_mobile/base.html' %}
+{% block body_block %}
+ <div class="container">
+        <div class="bg-light p-5 " style="margin-top: 5%;" >
+            <form method="post">
+               {% csrf_token %}
+               {{ form.as_p }}
+                <div class="form-group" align="center">
+                <input type="submit" class="btn btn-outline-primary" value="Submit">
+                </div>
+            </form>
+        </div>
+ </div>
+{% endblock %}

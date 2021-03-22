@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <tr>
+        <td>Orders</td>
+    </tr>
+    {% for order in orders %}
+    <tr>
+        <td><a href="{% url 'my_order' order.id %}">{{ order.model_name }}</a> </td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{% extends 'app_mobile/base.html' %}
+{% block body_block %}
+
+
+    {% for mobile in mobiles %}
+       <div class="card" style="width: 18rem;">
+       <a href="{% url 'detailed' mobile.id %}"><img src="{{ mobile.image }}" class="card-img-top" alt="..." height="318" width="102"></a>
+  <div class="card-body">
+    <p class="card-text">{{ mobile.brand_name}}</p>
+       <p class="card-text">{{ mobile.model_name }}</p>
+
+  </div>
+</div>
+    {% endfor %}
+
+
+
+{% endblock %}

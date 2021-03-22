@@ -1,0 +1,14 @@
+{% extends 'app_mobile/admin_base.html' %}
+{% block body_block %}
+<h1 align="center">ORDERS</h1>
+<table align="center">
+    <tr>
+        <td>Products</td>
+    </tr>
+    {% for order in orders %}
+    <tr>
+        <td><a href="{% url 'vieworders' order.id %}">{{ order.model_name }}</a> </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

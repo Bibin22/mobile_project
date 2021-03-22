@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style></style>
+       <link rel="stylesheet" href="{% static "css/login.css" %}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+</head>
+<body>
+<form method="post">
+    {% csrf_token %}
+
+    <div class="container">
+        <div class="bg-light p-5 " >
+
+            <div class="heading">
+                <h1>Login</h1>
+            </div>
+
+            <div class="form-group">
+                <div class="input-group flex-nowrap">
+
+                    <input type="text"  class="form-control shadow-none bg-light " id="uname" name="uname" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+                  </div>
+            </div>
+
+            <div class="form-group">
+                <div class="input-group flex-nowrap">
+
+                    <input type="password"  class="form-control shadow-none bg-light" id="pwd" name="pwd" placeholder="Password" aria-label="Password" aria-describedby="addon-wrapping">
+                  </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" class="btn btn-outline-primary" value="Login">
+            </div>
+
+            <div class="lnk">
+                <a href="#">Forgot password?</a><br>
+            </div>
+
+            <div class ="new">
+                <label>Don't You have an account?</label>
+                    <a href="{% url 'register' %}" id="nl">Create an account</a><br>
+            </div>
+
+               {% if message %}
+                {{ message }}
+                {% endif %}
+
+
+        </div>
+
+
+
+</div>
+    </div>
+
+</form>
+</body>
+
+</html>

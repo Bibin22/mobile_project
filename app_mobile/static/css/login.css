@@ -1,0 +1,73 @@
+h1{
+    text-align: center;
+    font-family: 'Dancing Script', cursive;
+    color:  #0528ee;
+}
+
+
+
+
+.p-5{
+    
+    width: 50%;
+    margin-top: 5%;
+    margin-left: 25%;
+    border-radius: 10px;
+    color:rgb(8, 8, 8);
+    
+    
+    
+}
+
+.btn{
+    margin-top: 10px;
+    
+    margin-left: 40%;
+    border-radius: 5px;
+}
+
+.lnk{
+    
+    margin-top: 10px;
+    margin-left: 35%;
+    
+}
+
+.new{
+    
+    margin-top: 10px;
+    margin-left: 20%;
+}
+
+a:link {
+    text-decoration: none;
+  }
+body{
+    background-image: url("images\\background.jpg");
+    background-attachment: fixed;
+  background-size: cover;
+}
+
+input[type="text"],
+select.form-control {
+  
+  background: transparent;
+  color: #0528ee;
+  border: none;
+  border-bottom: 1px solid #0528ee;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+input[type="password"],
+select.form-control {
+  background: transparent;
+  color: #0528ee;
+  border: none;
+  border-bottom: 1px solid #0528ee;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+

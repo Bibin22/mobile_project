@@ -1,0 +1,27 @@
+{% extends 'app_mobile/base.html' %}
+{% block body_block %}
+
+
+
+          <div class="card mb-3" style="max-width: 540px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="{{mobiles.image}}" alt="..." width="150">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+          <h4 class="card-title">{{mobiles.brand_name}}</h4>
+        <h5 class="card-title">{{mobiles.model_name}}</h5>
+        <p class="card-text">{{mobiles.specifications}}</p>
+        <p class="card-text">Rs{{mobiles.price}}</p>
+           <a href="{% url 'order' mobiles.id %}" class="btn btn-outline-primary">Place Order</a>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+{% endblock %}

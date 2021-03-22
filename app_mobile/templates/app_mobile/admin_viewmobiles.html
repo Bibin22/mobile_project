@@ -1,0 +1,29 @@
+{% extends 'app_mobile/admin_base.html' %}
+{% block body_block %}
+
+{% for mobile in mobiles %}
+
+
+          <div class="card mb-3" style="max-width: 540px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="{{mobiles.image}}" alt="..." width="150">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+          <h4 class="card-title">{{mobile.brand_name}}</h4>
+        <h5 class="card-title">{{mobile.model_name}}</h5>
+        <p class="card-text">{{mobile.specifications}}</p>
+        <p class="card-text">Rs{{mobile.price}}</p>
+           <a href="{% url 'edit' mobile.id %}" class="btn btn-outline-primary">EDIT</a>
+          <a href="{% url 'delete' mobile.id %}" class="btn btn-outline-primary">DELETE</a>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+
+
+{% endblock %}

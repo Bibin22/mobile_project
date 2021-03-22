@@ -1,0 +1,33 @@
+{% extends 'app_mobile/base.html' %}
+{% block body_block %}
+
+<h1>YOUR ORDERS</h1>
+
+          <div class="card mb-3" style="max-width: 540px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="{{mobiles.image}}" alt="..." width="150">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+          <h4 class="card-title">{{orders.brand_name}}</h4>
+        <h5 class="card-title">{{orders.model_name}}</h5>
+        <p class="card-text">{{mobiles.specifications}}</p>
+        <p class="card-text">Rs{{orders.price}}</p>
+          <p class="card-text">Name:{{orders.name}}</p>
+          <a href="{% url 'cancel' orders.id %}" class="btn btn-outline-primary">Cancel Order</a>
+          <a href="{% url 'status' orders.id %}" class="btn btn-outline-primary">Check Status</a>
+
+
+
+      </div>
+    </div>
+  </div>
+</div>
+      {% if message %}
+                {{ message }}
+                {% endif %}
+
+
+
+{% endblock %}
