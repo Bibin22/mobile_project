@@ -194,19 +194,16 @@ def filter(request):
     context = {
         "form":form,
     }
-    return render(request, 'app_mobile/filter.html',context)
     if request.method == "POST":
         form = FilterForm(request.POST)
         if form.is_valid():
-            filters = form.cleaned_data.get('filter')
-            filt = int(filters)
-            products = Mobile.objects.filter(price__lte=filt)
-            print(productse)
-            context={
-                "form":form,
+            fil = form.cleaned_data.get("fil")
+            #print(fil)
+            products = Mobile.objects.filter(price__lte=fil)
+            context = {
                 "products":products
             }
-            return render(request, 'app_mobile/filter.html',context)
+    return render(request, 'app_mobile/filter.html',context)
 
 
 

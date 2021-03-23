@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'app_mobile/base.html' %}
+{% block body_block %}
+
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit">
+    <input type="submit" value="Apply">
 </form>
 {% for product in products %}
 <div class="card mb-3" style="max-width: 540px;">
@@ -30,5 +26,4 @@
 </div>
 
 {% endfor %}
-</body>
-</html>
+{% endblock %}
