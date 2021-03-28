@@ -3,7 +3,7 @@ from django.urls import path
 from .views import view_mobiles, view_details, user_registration, user_signin, \
     user_signout, place_order, view_orderline, view_orders, my_orders, create_mobiles, \
     admin_viewmobiles, update_mobiles,delete_mobiles, cancel_orders, check_status,\
-    my_order, filter
+    my_order, filter, add_toCart, search, view_cart, delete_cart
 urlpatterns = [
     path('register', user_registration, name='register'),
     path('create', create_mobiles, name='create'),
@@ -21,5 +21,9 @@ urlpatterns = [
     path('delete<int:id>', delete_mobiles, name='delete'),
     path('cancel/<int:id>', cancel_orders,name='cancel'),
     path('status/<int:id>', check_status, name='status'),
-    path('filter', filter, name='filter')
+    path('filter', filter, name='filter'),
+    path('cart/<int:id>', add_toCart,name='cart'),
+    path('mycart', view_cart,name='mycart'),
+    path('delcart/<int:id>', delete_cart,name='delcart'),
+    path('search',search, name='search')
 ]

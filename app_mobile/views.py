@@ -1,8 +1,10 @@
-from django.shortcuts import render, redirect
-from .models import Mobile,Order
+from django.shortcuts import render, redirect, HttpResponse
+from .models import Mobile,Order,Cart
 from .forms import UserRegistrationForm, OrderCreateForm, OrderSubmitForm, CreatMobileForm, FilterForm
 from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+
 def user_registration(request):
     form = UserRegistrationForm()
     context = {
@@ -81,16 +83,22 @@ def delete_mobiles(request, id):
 
 def admin_viewmobiles(request):
     mobiles = Mobile.objects.all()
+    paginator = Paginator(mobiles, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     context = {
-        "mobiles":mobiles,
+        "page_obj": page_obj,
     }
     return render (request, 'app_mobile/admin_viewmobiles.html', context)
 
 @login_required()
 def view_mobiles(request):
     mobiles = Mobile.objects.all()
+    paginator = Paginator(mobiles, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     context = {
-        "mobiles":mobiles,
+        "page_obj": page_obj,
     }
     return render (request, 'app_mobile/first_view.html', context)
 @login_required()
@@ -121,7 +129,7 @@ def place_order(request, id):
                 "form":form
             }
             return render(request, 'app_mobile/place_order.html', context)
-        
+
     return render(request, 'app_mobile/place_order.html', context)
 
 def view_orderline(request):
@@ -197,13 +205,62 @@ def filter(request):
     if request.method == "POST":
         form = FilterForm(request.POST)
         if form.is_valid():
-            fil = form.cleaned_data.get("fil")
+            fil = form.cleaned_data.get("filter")
             #print(fil)
             products = Mobile.objects.filter(price__lte=fil)
+            paginator = Paginator(products, 6)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
             context = {
-                "products":products
+                "form":form,
+                "page_obj": page_obj,
             }
     return render(request, 'app_mobile/filter.html',context)
+
+@login_required()
+def add_toCart(request, id):
+
+    if request.method == "POST":
+        products = Mobile.objects.get(id=id)
+        brand_name = products.brand_name
+        items = Cart(user=request.user, mobile_id=products)
+        items.save()
+
+
+    return redirect('mycart')
+
+def view_cart(request):
+    carts = Cart.objects.filter(user=request.user)
+
+    mobiles = Mobile.objects.filter(model_name__in=[c.mobile_id for c in carts])
+
+    print(carts)
+    paginator = Paginator(mobiles, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {
+        "page_obj": page_obj,
+    }
+    return render(request, 'app_mobile/cart.html', context)
+
+def delete_cart(request, id):
+    carts = Cart.objects.get(id=id)
+    carts.delete()
+    return redirect('mycart')
+
+
+def search(request):
+    srch = request.GET['search']
+    products = Mobile.objects.filter(brand_name=srch)
+    paginator = Paginator(products, 6)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {
+        "page_obj": page_obj,
+    }
+    return render(request, 'app_mobile/search.html', context)
+
+
 
 
 

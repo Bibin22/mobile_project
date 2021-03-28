@@ -1,33 +1,54 @@
 {% extends 'app_mobile/base.html' %}
 {% block body_block %}
 
-<h1>YOUR ORDERS</h1>
+  <section id="listing" class="py-4">
+      <div class="container">
+           <div class="row">
+               <div class="col-6">
+                   <div class="col-md-9 col-lg-9 mb-9">
 
-          <div class="card mb-3" style="max-width: 540px;">
-  <div class="row g-0">
-    <div class="col-md-4">
-      <img src="{{mobiles.image}}" alt="..." width="150">
-    </div>
-    <div class="col-md-8">
-      <div class="card-body">
-          <h4 class="card-title">{{orders.brand_name}}</h4>
-        <h5 class="card-title">{{orders.model_name}}</h5>
-        <p class="card-text">{{mobiles.specifications}}</p>
-        <p class="card-text">Rs{{orders.price}}</p>
-          <p class="card-text">Name:{{orders.name}}</p>
-          <a href="{% url 'cancel' orders.id %}" class="btn btn-outline-primary">Cancel Order</a>
-          <a href="{% url 'status' orders.id %}" class="btn btn-outline-primary">Check Status</a>
+                          <img class="card-img-top" src="{{ mobiles.image.url }}" alt="" >
+
+                   </div>
+
+                   <div class="row mb-5 thumbs">
+                       {% if mobiles.image_1 %}
+                       <div class="col-md-3">
+
+                           <a href="{{ mobiles.image_1.url }}" data-lightbox="home-images">
+                               <img src="{{ mobiles.image_1.url }}" alt="" class="img-fluid">
+                           </a>
+                       </div>
+                       {% endif %}
+                       {% if mobiles.image_2 %}
+                      <div class="col-md-3">
+                           <a href="{{ mobiles.image_2.url }}" data-lightbox="home-images">
+                               <img src="{{ mobiles.image_2.url }}" alt="" class="img-fluid">
+                           </a>
+                      </div>
+                      {% endif %}
+                      {% if mobiles.image_3 %}
+                      <div class="col-md-3">
+                           <a href="{{ mobiles.image_3.url }}" data-lightbox="home-images">
+                              <img src="{{ mobiles.image_3.url }}" alt="" class="img-fluid">
+                           </a>
+                      </div>
+                     {% endif %}
+                   </div>
 
 
+               </div>
+               <div class="col-6">
+                   <div class="card-body">
+                     <h4 class="card-title">{{mobiles.brand_name}}</h4>
+                     <h5 class="card-title">{{mobiles.model_name}}</h5>
+                       <p class="card-text">{{mobiles.specifications}}</p>
+                       <p class="card-text">Rs{{mobiles.price}}</p>
+                        <p class="card-text">Ordered For:{{orders.name}}</p>
+                       <p class="card-text">Status: {{orders.status}}</p>
 
+                     </div>
+           </div>
       </div>
-    </div>
-  </div>
-</div>
-      {% if message %}
-                {{ message }}
-                {% endif %}
-
-
-
+  </section>
 {% endblock %}

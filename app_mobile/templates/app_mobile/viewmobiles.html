@@ -1,27 +1,57 @@
 {% extends 'app_mobile/base.html' %}
 {% block body_block %}
 
+  <section id="listing" class="py-4">
+      <div class="container">
+           <div class="row">
+               <div class="col-6">
+                   <div class="col-md-9 col-lg-9 mb-9">
+
+                          <img class="card-img-top" src="{{ mobiles.image }}" alt="" >
+
+                   </div>
+
+                   <div class="row mb-5 thumbs">
+                       {% if mobiles.image_1 %}
+                       <div class="col-md-3">
+
+                           <a href="{{ mobiles.image_1 }}" data-lightbox="home-images">
+                               <img src="{{ mobiles.image_1 }}" alt="" class="img-fluid">
+                           </a>
+                       </div>
+                       {% endif %}
+                       {% if mobiles.image_2 %}
+                      <div class="col-md-3">
+                           <a href="{{ mobiles.image_2 }}" data-lightbox="home-images">
+                               <img src="{{ mobiles.image_2 }}" alt="" class="img-fluid">
+                           </a>
+                      </div>
+                      {% endif %}
+                      {% if mobiles.image_3 %}
+                      <div class="col-md-3">
+                           <a href="{{ mobiles.image_3 }}" data-lightbox="home-images">
+                              <img src="{{ mobiles.image_3 }}" alt="" class="img-fluid">
+                           </a>
+                      </div>
+                     {% endif %}
+                   </div>
 
 
-          <div class="card mb-3" style="max-width: 540px;">
-  <div class="row g-0">
-    <div class="col-md-4">
-      <img src="{{mobiles.image}}" alt="..." width="150">
-    </div>
-    <div class="col-md-8">
-      <div class="card-body">
-          <h4 class="card-title">{{mobiles.brand_name}}</h4>
-        <h5 class="card-title">{{mobiles.model_name}}</h5>
-        <p class="card-text">{{mobiles.specifications}}</p>
-        <p class="card-text">Rs{{mobiles.price}}</p>
-           <a href="{% url 'order' mobiles.id %}" class="btn btn-outline-primary">Place Order</a>
+               </div>
+               <div class="col-6">
+                   <div class="card-body">
+                     <h4 class="card-title">{{mobiles.brand_name}}</h4>
+                     <h5 class="card-title">{{mobiles.model_name}}</h5>
+                       <p class="card-text">{{mobiles.specifications}}</p>
+                       <p class="card-text">Rs{{mobiles.price}}</p>
+                      <p> <form method="post" action="/cart/{{mobiles.id}}">
+                           {% csrf_token %}
+                           <input type="submit" class="btn btn-outline-primary" value="Add To Cart">
+                       </form>
 
+                       <a href="{% url 'order' mobiles.id %}" class="btn btn-outline-primary">Order Now!</a></p>
+                     </div>
+           </div>
       </div>
-    </div>
-  </div>
-</div>
-
-
-
-
+  </section>
 {% endblock %}

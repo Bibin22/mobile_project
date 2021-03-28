@@ -1,19 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<table>
+{% extends 'app_mobile/base.html' %}
+{% block body_block %}
+<table class="table">
     <tr>
-        <td>Orders</td>
+        <td>Product</td>
+        <td>Price</td>
+        <td>Ordered Date</td>
+        <td>Ordered For</td>
+        <td>Status</td>
+
     </tr>
     {% for order in orders %}
     <tr>
         <td><a href="{% url 'my_order' order.id %}">{{ order.model_name }}</a> </td>
+        <td>{{ order.price }} </td>
+        <td>{{ order.date }} </td>
+        <td>{{ order.name }}</td>
+        <td>{{ order.status }}</td>
+        {% if order.status == "Pending" %}
+        <td><a href="{% url 'cancel' order.id %}" class="btn btn-outline-danger" >Cancel Order</a> </td>
+        {% endif %}
+
     </tr>
     {% endfor %}
 </table>
-</body>
-</html>
+{% endblock %}

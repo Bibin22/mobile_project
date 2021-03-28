@@ -31,7 +31,7 @@ class OrderCreateForm(ModelForm):
 class OrderSubmitForm(ModelForm):
     class Meta:
         model = Order
-        fields = "__all__"
+        fields = ['user', 'name', 'address', 'phone', 'model_name',  'price', 'status']
 
         choices = (('pendind', 'pending'),('order dispatched', 'order dispatched'))
         widgets = {
@@ -41,6 +41,7 @@ class OrderSubmitForm(ModelForm):
             'phone': forms.TextInput(attrs={'class': 'form-control','readonly': 'readonly'}),
             'model_name': forms.TextInput(attrs={'class': 'form-control', 'readonly': 'readonly'}),
             'price': forms.TextInput(attrs={'class': 'form-control', 'readonly': 'readonly'}),
+
             'status': forms.Select(choices=choices, attrs={'class': 'form-control'}),
         }
 
@@ -54,6 +55,9 @@ class CreatMobileForm(ModelForm):
             'price': forms.TextInput(attrs={'class': 'form-control'}),
             'specifications': forms.Textarea(attrs={'class': 'form-control'}),
             'image': forms.FileInput(attrs={'class': 'form-control'}),
+            'image_1': forms.FileInput(attrs={'class': 'form-control'}),
+            'image_2': forms.FileInput(attrs={'class': 'form-control'}),
+            'image_3': forms.FileInput(attrs={'class': 'form-control'}),
             'quantity': forms.TextInput(attrs={'class': 'form-control'}),
 
         }
@@ -61,4 +65,7 @@ class CreatMobileForm(ModelForm):
 
 class FilterForm(forms.Form):
     choices = (('10000', '10000'), ('15000', '15000'), ('20000', '20000'), ('25000', '25000'), ('30000', '30000'), ('35000', '35000'), ('40000', '40000'), ('45000', '45000'), ('50000', '50000'))
-    fil = forms.ChoiceField(choices=choices)
+    filter = forms.ChoiceField(choices=choices, widget=forms.RadioSelect)
+
+class Search(forms.Form):
+    search = forms.CharField()

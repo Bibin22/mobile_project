@@ -4,26 +4,89 @@
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Apply">
+    <input type="submit" class="btn btn-primary btn-block" value="filter">
 </form>
-{% for product in products %}
-<div class="card mb-3" style="max-width: 540px;">
-  <div class="row g-0">
-    <div class="col-md-4">
-      <img src="{{product.image}}" alt="..." width="150">
-    </div>
-    <div class="col-md-8">
-      <div class="card-body">
-          <h4 class="card-title">{{product.brand_name}}</h4>
-        <h5 class="card-title">{{product.model_name}}</h5>
-        <p class="card-text">{{product.specifications}}</p>
-        <p class="card-text">Rs{{product.price}}</p>
-           <a href="{% url 'order' product.id %}" class="btn btn-outline-primary">Place Order</a>
+
+<section id="listings" class="py-4">
+    <div class="container">
+      <div class="row">
+        {% if page_obj %}
+
+        {% for mobile in page_obj %}
+
+         <!-- Listing 1 -->
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="card listing-preview">
+
+            <img class="card-img-top" src="{{ mobile.image }}" alt="" >
+
+            <div class="card-body">
+              <div class="listing-heading text-center">
+                <h4 class="text-primary">{{mobile.brand_name}}</h4>
+                <p>
+                  <i class="fas fa-map-marker text-secondary"></i> {{ mobile.model_name }}</p>
+                  <p>
+                  <i class="fas fa-map-marker text-secondary"></i>Rs {{ mobile.price }}</p>
+              </div>
+
+              <hr>
+              <a href="{% url 'detailed' mobile.id %}" class="btn btn-primary btn-block">More Info</a>
+            </div>
+          </div>
+        </div>
+
+        {% endfor  %}
+
+        {% else %}
+        <div class="col-md-12">
+          <p>No Mobiles is Available </p>
+        </div>
+        {% endif %}
+
 
       </div>
-    </div>
-  </div>
-</div>
 
-{% endfor %}
+      <div class="row">
+        <div class="col-md-12">
+          {% if page_obj.has_other_pages %}
+          <ul class="pagination">
+            {% if page_obj.has_previous %}
+             <li class="page-item">
+               <a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo;
+               </a>
+             </li>
+            {% else %}
+            <li class="page-item disabled">
+              <a href="page-link">&laquo;</a>
+            </li>
+            {% endif %}
+            {% for i in page_obj.paginator.page_range %}
+            {% if page_obj.number == i %}
+            <li class="page-item active">
+              <a class="page-link">{{i}}</a>
+            </li>
+            {% else %}
+            <li class="page-item">
+             <a href="?page={{i}}" class="page-link">{{i}}</a>
+            </li>
+
+            {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+             <li class="page-item">
+               <a href="?page={{ page_obj.next_page_number }}" class="page-link">&raquo;
+               </a>
+             </li>
+            {% else %}
+            <li class="page-item disabled">
+              <a href="page-link">&raquo;</a>
+            </li>
+            {% endif %}
+          </ul>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
 {% endblock %}
